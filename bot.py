@@ -80,7 +80,6 @@ async def back(callback: CallbackQuery):
 async def receive_check(message: Message):
     user = message.from_user
     
-    # Пересылаем чек админу
     await bot.forward_message(ADMIN_ID, message.chat.id, message.message_id)
     
     await bot.send_message(
@@ -101,7 +100,7 @@ async def approve(callback: CallbackQuery):
     try:
         await bot.send_message(user_id, SUCCESS_TEXT + f"\n\n{GROUP_LINK}")
         await callback.message.edit_text("✅ Платёж одобрен и пользователь уведомлён!")
-    except Exception as e:
+    except:
         await callback.message.edit_text("✅ Платёж одобрен, но сообщение не дошло пользователю.")
 
 @dp.callback_query(F.data.startswith("reject_"))
